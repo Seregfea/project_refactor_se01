@@ -2,6 +2,7 @@ package at.aau.serg.exercises.gamelogic.gameboard;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class GameBoard {
 
@@ -16,12 +17,15 @@ public class GameBoard {
     // initialize radnom at first to not get always new random with fakeran var
     private final Random random;
     private final List<Enemy> enemyList;
+    private static final Logger LOGGER = Logger.getLogger(GameBoard.class.getName());
+    private StringBuilder rowString;
 
     public GameBoard(List<Enemy> enemies) {
         board = new Type[5][5];
         damageMultiplier = new double[5][5];
         walkingmultiplier = new double[5][5];
 
+        rowString = new StringBuilder();
         random = new Random();
         enemyList = enemies;
         initialize(enemies);
@@ -50,9 +54,9 @@ public class GameBoard {
                         break;
                 }
 
-                System.out.print(board[row][col] + ", ");
+             rowString.append(board[row][col]).append(", ");
             }
-            System.out.println();
+            LOGGER.info(rowString.toString());
         }
 
         // place the enemies
