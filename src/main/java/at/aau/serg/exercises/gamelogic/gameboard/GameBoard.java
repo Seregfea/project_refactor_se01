@@ -13,6 +13,8 @@ public class GameBoard {
     // Movement multipliers when walking
     private final double[][] walkingmultiplier;
     
+    // initialize radnom at first to not get always new random with fakeran var
+    private final Random random;
     private final List<Enemy> enemyList;
 
     public GameBoard(List<Enemy> enemies) {
@@ -20,13 +22,13 @@ public class GameBoard {
         damageMultiplier = new double[5][5];
         walkingmultiplier = new double[5][5];
 
+        random = new Random();
         enemyList = enemies;
         initialize(enemies);
     }
 
     private void initialize(List<Enemy> enemies) {
         // Initialize the board with random field types
-        Random random = new Random();
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 board[row][col] = Type.values()[random.nextInt(Type.values().length)];
