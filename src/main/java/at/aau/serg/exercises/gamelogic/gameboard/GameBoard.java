@@ -6,14 +6,13 @@ import java.util.Random;
 public class GameBoard {
 
     private final Type[][] board;
-    private final double[][] damageMultiplier, walkingmultiplier;
-    /**
-     *  // Damage multipliers for each type of attack
-        private final double[][] damageMultiplier;
+    
+    // Damage multipliers for different attack types
+    private final double[][] damageMultiplier;
 
-        // Multipliers for walking movement effects
-        private final double[][] walkingmultiplier;
-     */
+    // Movement multipliers when walking
+    private final double[][] walkingmultiplier;
+    
     private final List<Enemy> enemyList;
 
     public GameBoard(List<Enemy> enemies) {
@@ -87,4 +86,15 @@ public class GameBoard {
     }
 
 }
+/**
+ * Die Cyclomatic Complexity 𝑉(𝐺) wird wie folgt definiert:
+    𝑉(𝐺)=𝐸−𝑁+2𝑃
 
+    E = Anzahl der Kanten im Kontrollflussgraphen
+    N = Anzahl der Knoten im Kontrollflussgraphen
+    P = Anzahl der zusammenhängenden Teile (für Methoden typischerweise 1)
+ */
+
+    /**
+     * davor Startwert = 1 → Cyclomatic Complexity = 1 + 9 = 10
+     */
