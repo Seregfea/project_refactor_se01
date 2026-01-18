@@ -2,6 +2,7 @@ package at.aau.serg.exercises.gamelogic.gameboard;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GameBoard {
@@ -18,7 +19,7 @@ public class GameBoard {
     private final Random random;
     private final List<Enemy> enemyList;
     private static final Logger LOGGER = Logger.getLogger(GameBoard.class.getName());
-    private StringBuilder rowString;
+    private final StringBuilder rowString;
 
     public GameBoard(List<Enemy> enemies) {
         board = new Type[5][5];
@@ -56,7 +57,8 @@ public class GameBoard {
 
              rowString.append(board[row][col]).append(", ");
             }
-            LOGGER.info(rowString.toString());
+            LOGGER.log(Level.INFO, () -> rowString.toString());
+
         }
 
         // place the enemies
