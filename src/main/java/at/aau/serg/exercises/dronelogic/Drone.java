@@ -38,6 +38,19 @@ public class Drone {
      */
     public String serialNumber;
 
+    /**
+     * private final String serialNumber;
+
+    public MyClass(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+        would be the best solution cause every object should have one not changing number
+     */
+
 /**
  * Use this only if the firmware version is fixed and shared by all instances.
 
@@ -60,6 +73,8 @@ public class Drone {
 
     ✔ Encapsulation
     ✔ Allows validation later
+
+    firmware gets updated and different drones could have different firmware
  */
 
     public Integer firmwareVersion;
@@ -103,6 +118,20 @@ public class Drone {
 
     public String droneType;
 
+/**
+ * private final String droneType;
+
+        public Drone(String droneType) {
+            + check if Surveyor,  Guardian,  und  Courier
+            this.droneType = droneType;
+        }
+
+        public String getDroneType() {
+            return droneType;
+        }
+            donetype does not change after production
+ */
+
     /**
      * private double payload;
 
@@ -138,6 +167,18 @@ public class Drone {
 
      */
     public double payload;
+
+    /**public double getPayload() {
+        return payload;
+    }
+
+    public void setPayload(double payload) {
+        if (payload < 0) {
+            throw new IllegalArgumentException("Payload cannot be negative");
+        }
+        this.payload = payload;
+        if the drone gets modivied the load could change
+    } */
 
     /**
      * Used for scan and high-altitude modes, low-altitude ignores this value
@@ -183,6 +224,20 @@ public class Drone {
      */
 
     public int operationRange;
+
+    /**
+     *  public int getOperationRange() {
+        return operationRange;
+    }
+
+    public void setOperationRange(int operationRange) {
+        if (operationRange < 0) {
+            throw new IllegalArgumentException("Operation range cannot be negative");
+        }
+        this.operationRange = operationRange;
+    }
+        if the drone get modi the range can change
+     */
 
     /**
      * 1 := lowAltitude (guardian always has this disabled)
@@ -235,6 +290,24 @@ public class Drone {
      */
     public short operationMode;
 
+    /** 
+     *  public enum OperationMode {
+        MANUAL,
+        AUTO,
+        RETURN_HOME
+    }
+    private OperationMode operationMode;
+
+    public OperationMode getOperationMode() {
+        return operationMode;
+    }
+
+    public void setOperationMode(OperationMode operationMode) {
+        this.operationMode = operationMode;
+    }
+        enums sind anpassungsfähig und überichtlich es sollte noch nach NULL geprüft werden
+     */
+
     /**
      * None (null), thermal, camera, jammer, medical
      */
@@ -279,6 +352,24 @@ public class Drone {
     public String payloadEffect;
 
     /**
+     * public enum PayloadEffect {
+            NONE,
+            REDUCED_RANGE,
+            REDUCED_SPEED
+        }
+        private PayloadEffect payloadEffect;
+
+        public PayloadEffect getPayloadEffect() {
+            return payloadEffect;
+        }
+
+        public void setPayloadEffect(PayloadEffect payloadEffect) {
+            this.payloadEffect = payloadEffect;
+        }
+            wieder nach NULL überprüfen und selbsterklrender
+     */
+
+    /**
      * Indicates if a guardian currently has their shield mode enabled
      */
 
@@ -316,6 +407,18 @@ public class Drone {
      */
     public boolean shieldModeEnabled;
 
+    /**
+     * private boolean shieldModeEnabled;
+
+        public boolean isShieldModeEnabled() {
+            return shieldModeEnabled;
+        }
+
+        public void setShieldModeEnabled(boolean enabled) {
+            this.shieldModeEnabled = enabled;
+        }
+            true false option die geändert werden kann
+     */
     /**
      * Available battery of surveyor
      */
@@ -357,7 +460,21 @@ public class Drone {
     ✔ Thread-safe
      */
     public int battery;
+    /**
+     * public int getBattery() {
+        return battery;
+    }
 
+    public void setBattery(int battery) {
+        if (battery < 0 || battery > 100) {
+            throw new IllegalArgumentException("Battery must be between 0 and 100");
+        }
+        this.battery = battery;
+        status dauernd am ändern
+     * @return
+     */
+
+        /* bei enum nutzung muss lediglich der string geändert werden */
     public String getDescription() {
         switch (droneType) {
             case "Surveyor":
@@ -374,4 +491,11 @@ public class Drone {
     public boolean isCertified() {
         return firmwareVersion.equals(12);
     }
+
+    /**
+     * public boolean isCertified() {
+        return firmwareVersion == 12;
+}
+    equals castet 12 in Integer, == ist primitive und nullsafe
+     */
 }

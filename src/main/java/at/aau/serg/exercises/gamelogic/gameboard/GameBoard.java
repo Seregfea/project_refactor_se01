@@ -7,6 +7,13 @@ public class GameBoard {
 
     private final Type[][] board;
     private final double[][] damageMultiplier, walkingmultiplier;
+    /**
+     *  // Damage multipliers for each type of attack
+        private final double[][] damageMultiplier;
+
+        // Multipliers for walking movement effects
+        private final double[][] walkingmultiplier;
+     */
     private final List<Enemy> enemyList;
 
     public GameBoard(List<Enemy> enemies) {
