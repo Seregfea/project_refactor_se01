@@ -47,8 +47,6 @@ public class GameBoard {
                         damageMultiplier[row][col] = 2;
                         break;
                     default:
-                        walkingmultiplier[row][col] = 1;
-                        damageMultiplier[row][col] = 1;
                         break;
                 }
 
