@@ -64,9 +64,7 @@ public class GameBoard {
         // place the enemies
         for (int i = 0; i < enemies.size(); i++) {
             Enemy enemy = enemies.get(i);
-            if (enemy.health == 0) {
-                continue;
-            } else {
+            if (enemy.health > 0) {
                 var x = random.nextInt(5);
                 var y = random.nextInt(5);
                 enemy.pos = new Position(x, y);
