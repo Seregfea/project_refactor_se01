@@ -215,4 +215,12 @@ public class GameBoard {
     /**
      * davor Startwert = 1 → Cyclomatic Complexity = 1 + 9 = 10
      * danach Startwert = 1 → Cyclomatic Complexity = 1 + 9 = 10
+     * 
+     * | Methode                   | Entscheidungspunkte | CC |
+       | ------------------------- | ------------------- | -- |
+       | `createRandom()`          | 0                   | 1  |
+       | `initializeRandomBoard()` | 2 (2 `for`)         | 3  |
+       | `placeEnemies()`          | 3 (`for` + 2 `if`)  | 4  |
+       | `Type` Enum               | 0                   | 1  |
+
      */
