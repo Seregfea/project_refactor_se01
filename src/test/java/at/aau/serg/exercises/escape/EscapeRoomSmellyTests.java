@@ -48,6 +48,11 @@ class EscapeRoomSmellyTests {
      */
     @Test
     void test1() throws Exception {
+        /*
+        Using Thread.sleep in this case can cause flaky tests, 
+        slow test execution, and inaccurate test results. 
+        It creates brittle tests that can fail unpredictably depending on 
+        the environment or load. */
         Thread.sleep(5);
 
         Token token = vault.issueToken("Team Rocket", "skull");
@@ -91,6 +96,18 @@ class EscapeRoomSmellyTests {
         assertTrue(ok == true || ok == false);
     }
 
+    /**
+     * @Test
+    void testThrow() {
+    // This test verifies that issuing a token with an empty team name throws an exception
+        assertThrows(Exception.class, () -> vault.issueToken("", "skull"),
+            "Issuing a token with an empty team name should throw an exception");
+}
+            No empty try-catch.
+            The test now explicitly asserts that an exception is thrown.
+            Provides a clear message for future maintainers.
+
+     */
     @Test
     void testThrow() {
         try {
