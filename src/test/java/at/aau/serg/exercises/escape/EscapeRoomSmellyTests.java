@@ -1,13 +1,19 @@
 package at.aau.serg.exercises.escape;
 
-import org.junit.jupiter.api.*;
-
-import java.time.*;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-public class EscapeRoomSmellyTests {
+class EscapeRoomSmellyTests {
     static EscapeRoomVault vault;
     static InMemoryAuditLog audit;
 
@@ -21,7 +27,25 @@ public class EscapeRoomSmellyTests {
         Config cfg = new Config(Duration.ofSeconds(45), 3, Duration.ofSeconds(30));
         vault = new EscapeRoomVault(cfg, clock, random, audit);
     }
+    /**
+     * @Test
+    
+    void test1() throws Exception {
+    // Issue a token for the team
+    Token token = vault.issueToken("Team Rocket", "skull");
 
+    // Attempt to unlock with the token
+    boolean unlocked = vault.attemptUnlock("Team Rocket", token, token.getCode());
+
+    // Verify the unlock was successful
+    assertTrue(unlocked, "Vault should unlock with the correct token and code");
+
+    // Verify that an audit event was recorded
+    assertFalse(audit.events().isEmpty(), "Audit should have recorded at least one event");
+}
+
+     * @throws Exception
+     */
     @Test
     void test1() throws Exception {
         Thread.sleep(5);
