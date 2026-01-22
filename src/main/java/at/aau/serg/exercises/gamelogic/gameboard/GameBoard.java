@@ -32,12 +32,93 @@ public class GameBoard {
         initialize(enemies);
     }
 
+    /**
+     * 
+
+    // 🔒 Konstruktor macht NUR Initialisierung, keine Logik
+    private GameBoard(List<Enemy> enemies, Random random) {
+        this.enemyList = enemies;
+        this.random = random;
+
+        this.board = new Type[BOARD_SIZE][BOARD_SIZE];
+        this.damageMultiplier = new double[BOARD_SIZE][BOARD_SIZE];
+        this.walkingMultiplier = new double[BOARD_SIZE][BOARD_SIZE];
+    }
+
+    // 🏭 Factory-Methode mehrere gameboards unabhängig voneinander baubar
+    // abgekapselt und übershaubarer auch leichter testbar
+    public static GameBoard createRandom(List<Enemy> enemies) {
+        GameBoard board = new GameBoard(enemies, new Random());
+        board.initializeRandomBoard();
+        board.placeEnemies();
+        return board;
+    }
+
+    // 🎲 Initialisiert Spielfeld
+    private void initializeRandomBoard() {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            StringBuilder rowString = new StringBuilder();
+
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                Type type = Type.values()[random.nextInt(Type.values().length)];
+                board[row][col] = type;
+
+                walkingMultiplier[row][col] = type.getWalkingMultiplier();
+                damageMultiplier[row][col] = type.getDamageMultiplier();
+
+                rowString.append(type).append(", ");
+            }
+
+            LOGGER.log(Level.INFO, rowString::toString);
+        }
+    }
+
+    // 👾 Platziert Gegner auf dem Board
+    private void placeEnemies() {
+        for (Enemy enemy : enemyList) {
+            if (enemy.getHealth() < 0) {
+                continue;
+            }
+
+            int x = random.nextInt(BOARD_SIZE);
+            int y = random.nextInt(BOARD_SIZE);
+
+            // lässt enemy prüfen ob position vergeben ist
+            enemy.setPosition(new Position(x, y));
+
+            double damageMult = damageMultiplier[x][y];
+            double speedMult = walkingMultiplier[x][y];
+
+            if (enemy.getType() == Enemy.EnemyType.BOSS) {
+                damageMult *= 1.5;
+                speedMult *= 1.5;
+            }
+
+            // set zugriff anstelle von direct var change, erlaubt klasse selbst zu prüfen und regulieren
+            enemy.setDamageMultiplier(damageMult);
+            enemy.setSpeedMultiplier(speedMult);
+        }
+    }
+
+}
+
+     * @param enemies
+     */
+
     private void initialize(List<Enemy> enemies) {
         // Initialize the board with random field types
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 board[row][col] = Type.values()[random.nextInt(Type.values().length)];
 
+               /**
+                * private static final int BOARD_SIZE = 5;
+                  private static final double WOODS_WALK_MULT = 0.7;
+                  es sind zwar fix werte aber es ist hard gecodet, besser wäre vars dafür anzulegen 
+                  und fall bedingt auch die möglichkeit zur verfügung zu stellen diesse zu verändern 
+                  (beispiel für erleichtertes mooding in der gaming industrie)
+
+                */
                 switch (board[row][col]) {
                     case GRASS:
                     case ROCK:
@@ -82,6 +163,38 @@ public class GameBoard {
     }
 
     // Enum for the field types
+    /**
+     * möglichkeit enums mit Verhalten zu erstellen
+     * enum Type {
+            GRASS(1,1),
+            WOODS(0.7,1.2),
+            ROCK(1,1),
+            SPECIAL(1,2);
+
+            final double walkMult;    defiiert verweils die Werte von Grass, Woods, etc
+            final double dmgMult;
+
+             Type(double walkingMultiplier, double damageMultiplier) {
+                this.walkingMultiplier = walkingMultiplier;
+                this.damageMultiplier = damageMultiplier;
+            }
+
+            public double getWalkingMultiplier() {
+                return walkingMultiplier;
+            }
+
+            public double getDamageMultiplier() {
+                return damageMultiplier;
+            }
+        }
+
+        möglicher zugriff ohne switch gebrauch 
+        Type fieldType = board[row][col]; oder Type type = Type.WOODS; array [0,1,2,3] woods 1
+
+        walkingmultiplier[row][col] = fieldType.getWalkingMultiplier();
+        damageMultiplier[row][col] = fieldType.getDamageMultiplier();
+
+     */
     public enum Type {
         GRASS,
         WOODS,
@@ -101,4 +214,5 @@ public class GameBoard {
 
     /**
      * davor Startwert = 1 → Cyclomatic Complexity = 1 + 9 = 10
+     * danach Startwert = 1 → Cyclomatic Complexity = 1 + 9 = 10
      */
